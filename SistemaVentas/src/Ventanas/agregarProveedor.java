@@ -14,7 +14,7 @@ import Repository.ProviderRepository;
  */
 public class agregarProveedor extends javax.swing.JFrame {
 
-    static ProviderRepository pr = new ProviderRepository();
+    static ProviderRepository providerR;
     private Provider p = new Provider();
     /**
      * Creates new form agregarProveedor
@@ -22,7 +22,7 @@ public class agregarProveedor extends javax.swing.JFrame {
     public agregarProveedor(ProviderRepository pr) {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.pr = pr;
+        this.providerR = pr;
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
@@ -153,9 +153,9 @@ public class agregarProveedor extends javax.swing.JFrame {
         p.setPhone(areaPhone.getText());
         p.setWebsite(areaWebsite.getText());
         
-        pr.create(p);
+        providerR.create(p);
         
-        Proveedores vp = new Proveedores(pr);
+        Proveedores vp = new Proveedores(providerR);
         vp.setVisible(true);
         
         this.dispose();
@@ -191,7 +191,7 @@ public class agregarProveedor extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new agregarProveedor(pr).setVisible(true);
+                new agregarProveedor(providerR).setVisible(true);
             }
         });
     }

@@ -26,8 +26,8 @@ import javax.persistence.Persistence;
  */
 public class ProviderRepository implements Serializable {
 
-    public ProviderRepository() {
-        this.emf = Persistence.createEntityManagerFactory("SistemaVentasPU");
+    public ProviderRepository(EntityManagerFactory emf) {
+        this.emf = emf;
     }
     private EntityManagerFactory emf = null;
 

@@ -6,16 +6,13 @@
 package Entity;
 
 import java.io.Serializable;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -41,7 +38,7 @@ public class Saleitem extends BaseEntity implements Serializable {
     @Column(name = "Total")
     private Float total;
     @JoinColumn(name = "ProductID", referencedColumnName = "ID")
-    @ManyToOne
+    @OneToOne
     private Product productID;
     @JoinColumn(name = "SaleID", referencedColumnName = "ID")
     @ManyToOne
@@ -54,8 +51,8 @@ public class Saleitem extends BaseEntity implements Serializable {
         return price;
     }
 
-    public void setPrice(Float price) {
-        this.price = price;
+    public void setPrice(Product p) {
+        this.price = p.getPrice();
     }
 
     public Integer getQuantity() {
@@ -70,8 +67,8 @@ public class Saleitem extends BaseEntity implements Serializable {
         return total;
     }
 
-    public void setTotal(Float total) {
-        this.total = total;
+    public void setTotal() {
+        this.total = this.price*this.quantity;
     }
 
     public Product getProductID() {

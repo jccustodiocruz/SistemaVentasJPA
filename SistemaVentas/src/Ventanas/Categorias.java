@@ -19,7 +19,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Categorias extends javax.swing.JFrame {
 
-    static CategoryRepository cr;
+    static CategoryRepository categoryR;
     
     /**
      * Creates new form Categorias
@@ -28,14 +28,14 @@ public class Categorias extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         modeloTabla();
-        this.cr = cr;
+        this.categoryR = cr;
         llenarTabla();
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
     
     public void llenarTabla() {
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-        List<Category> lc = cr.findCategoryEntities();
+        List<Category> lc = categoryR.findCategoryEntities();
         Object o[] = null;
 
         for (int i = 0; i < lc.size(); i++) {
@@ -143,7 +143,7 @@ public class Categorias extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bAgregarCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAgregarCategoriaActionPerformed
-        agregarCategoria ac = new agregarCategoria(cr);
+        agregarCategoria ac = new agregarCategoria(categoryR);
         ac.setVisible(true);
         
         this.dispose();
@@ -179,7 +179,7 @@ public class Categorias extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Categorias(cr).setVisible(true);
+                new Categorias(categoryR).setVisible(true);
             }
         });
     }

@@ -19,9 +19,9 @@ import java.util.List;
  */
 public class agregarProducto extends javax.swing.JFrame {
 
-    static CategoryRepository cr;
-    static ProviderRepository pR;
-    static ProductRepository pr;
+    static CategoryRepository categoryR;
+    static ProviderRepository providerR;
+    static ProductRepository productR;
     Product p = new Product();
     /**
      * Creates new form agregarProducto
@@ -29,16 +29,16 @@ public class agregarProducto extends javax.swing.JFrame {
     public agregarProducto(ProductRepository pr, CategoryRepository cr, ProviderRepository pR) {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.pr = pr;
-        this.cr = cr;
-        this.pR = pR;
+        this.productR = pr;
+        this.categoryR = cr;
+        this.providerR = pR;
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         listar();
     }
     
     public void listar(){
-        List<Category> lc = cr.findCategoryEntities();
-        List<Provider> lp = pR.findProviderEntities();
+        List<Category> lc = categoryR.findCategoryEntities();
+        List<Provider> lp = providerR.findProviderEntities();
         
         for (int i = 0; i < lc.size(); i++) {
             listCategories.addItem(lc.get(i));            
@@ -79,7 +79,6 @@ public class agregarProducto extends javax.swing.JFrame {
         bCanelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(900, 600));
         setMinimumSize(new java.awt.Dimension(900, 600));
         setResizable(false);
         getContentPane().setLayout(null);
@@ -150,10 +149,10 @@ public class agregarProducto extends javax.swing.JFrame {
         p.setCategoryID((Category) listCategories.getSelectedItem());
         p.setPrice(Float.parseFloat(areaPrice.getText()));
         p.setStock(Integer.parseInt(areaStock.getText()));
-        
-        pr.create(p);
+                
+        productR.create(p);
 
-        Productos vp = new Productos(pr, cr, pR);
+        Productos vp = new Productos(productR, categoryR, providerR);
         vp.setVisible(true);
 
         this.dispose();
@@ -193,7 +192,7 @@ public class agregarProducto extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new agregarProducto(pr, cr, pR).setVisible(true);
+                new agregarProducto(productR, categoryR, providerR).setVisible(true);
             }
         });
     }

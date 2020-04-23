@@ -3,10 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/juanc/Documents/Escuela/Cuarto%20Semestre/Bases%20de%20datos%20avanzados/Projectos/SistemaVentasJPA/SistemaVentas/src/Ventanas/mostrarCliente.java</file>
-            <file>file:/C:/Users/juanc/Documents/Escuela/Cuarto%20Semestre/Bases%20de%20datos%20avanzados/Projectos/SistemaVentasJPA/SistemaVentas/src/Ventanas/Clientes.java</file>
-            <file>file:/C:/Users/juanc/Documents/Escuela/Cuarto%20Semestre/Bases%20de%20datos%20avanzados/Projectos/SistemaVentasJPA/SistemaVentas/src/Ventanas/mostrarProveedor.java</file>
-            <file>file:/C:/Users/juanc/Documents/Escuela/Cuarto%20Semestre/Bases%20de%20datos%20avanzados/Projectos/SistemaVentasJPA/SistemaVentas/src/Ventanas/Proveedores.java</file>
+            <file>file:/C:/Users/juanc/Documents/Escuela/Cuarto%20Semestre/Bases%20de%20datos%20avanzados/Projectos/SistemaVentasJPA/SistemaVentas/src/Ventanas/realizarCompra.java</file>
+            <file>file:/C:/Users/juanc/Documents/Escuela/Cuarto%20Semestre/Bases%20de%20datos%20avanzados/Projectos/SistemaVentasJPA/SistemaVentas/src/Ventanas/agregarProducto.java</file>
+            <file>file:/C:/Users/juanc/Documents/Escuela/Cuarto%20Semestre/Bases%20de%20datos%20avanzados/Projectos/SistemaVentasJPA/SistemaVentas/src/Entity/Saleitem.java</file>
+            <file>file:/C:/Users/juanc/Documents/Escuela/Cuarto%20Semestre/Bases%20de%20datos%20avanzados/Projectos/SistemaVentasJPA/SistemaVentas/src/Ventanas/Principal.java</file>
+            <file>file:/C:/Users/juanc/Documents/Escuela/Cuarto%20Semestre/Bases%20de%20datos%20avanzados/Projectos/SistemaVentasJPA/SistemaVentas/src/Ventanas/agregarProductoCarrito.java</file>
         </group>
     </open-files>
 </project-private>

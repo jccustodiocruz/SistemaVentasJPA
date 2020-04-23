@@ -19,7 +19,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Clientes extends javax.swing.JFrame {    
 
-    static CustomerRepository cr;
+    static CustomerRepository customerR;
 
     /**
      * Creates new form Clientes
@@ -29,7 +29,7 @@ public class Clientes extends javax.swing.JFrame {
     public Clientes(CustomerRepository cr) {
         initComponents();        
         this.setLocationRelativeTo(null);
-        this.cr = cr;
+        this.customerR = cr;
         modeloTabla();
         llenarTabla();
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -37,7 +37,7 @@ public class Clientes extends javax.swing.JFrame {
 
     public void llenarTabla() {
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-        List<Customer> lc = cr.findCustomerEntities();
+        List<Customer> lc = customerR.findCustomerEntities();
         Object o[] = null;
 
         for (int i = 0; i < lc.size(); i++) {
@@ -155,9 +155,9 @@ public class Clientes extends javax.swing.JFrame {
         int selectedRow = tClientes.getSelectedRow();        
         int id = (int) modelo.getValueAt(selectedRow, 0);
         
-        Customer c = cr.findCustomer(id);
+        Customer c = customerR.findCustomer(id);
         
-        mostrarCliente mc = new mostrarCliente(cr, c);
+        mostrarCliente mc = new mostrarCliente(customerR, c);
         mc.setVisible(true);
         
         this.dispose();
@@ -165,7 +165,7 @@ public class Clientes extends javax.swing.JFrame {
     }//GEN-LAST:event_tClientesMouseClicked
 
     private void bAgregarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAgregarClienteActionPerformed
-        agregarCliente ac = new agregarCliente(cr);
+        agregarCliente ac = new agregarCliente(customerR);
         ac.setVisible(true);
         
         this.dispose();
@@ -201,7 +201,7 @@ public class Clientes extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Clientes(cr).setVisible(true);
+                new Clientes(customerR).setVisible(true);
             }
         });
     }

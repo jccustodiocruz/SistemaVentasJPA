@@ -5,12 +5,13 @@
  */
 package Ventanas;
 
-import Entity.Category;
-import Entity.Product;
-import Entity.Provider;
-import Repository.CategoryRepository;
+import Entity.Customer;
+import Entity.Sale;
+import Entity.Saleitem;
+import Repository.CustomerRepository;
 import Repository.ProductRepository;
-import Repository.ProviderRepository;
+import Repository.SaleItemRepository;
+import Repository.SaleRepository;
 import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -21,68 +22,76 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author juanc
  */
-public class Productos extends javax.swing.JFrame {
+public class realizarCompra extends javax.swing.JFrame {
 
+    static SaleItemRepository saleItemR;
+    static SaleRepository saleR;
+    static CustomerRepository customerR;
     static ProductRepository productR;
-    static ProviderRepository providerR;
-    static CategoryRepository categoryR;
-
+    final Sale s;
+    
     /**
-     * Creates new form Productos
+     * Creates new form realizarCompra
      */
-    public Productos(ProductRepository pr, CategoryRepository cr, ProviderRepository pR) {
+    public realizarCompra(SaleRepository sr, SaleItemRepository sir, CustomerRepository cr, ProductRepository pr) {
         initComponents();
         this.setLocationRelativeTo(null);
+        this.saleItemR = sir;
+        this.saleR = sr;  
+        this.customerR = cr;
         this.productR = pr;
-        this.categoryR = cr;
-        this.providerR = pR;
-        modeloTabla();
+        listar();        
         llenarTabla();
-        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        s = new Sale();
+        sr.create(s);       
+       this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);        
     }
-
+    
+    public void listar(){        
+        List<Customer> lc = customerR.findCustomerEntities();
+               
+        for (int i = 0; i < lc.size(); i++) {
+            listaClientes.addItem(lc.get(i));
+        }
+    }
+    
     public void llenarTabla() {
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-        List<Product> lp = productR.findProductEntities();
+        List<Saleitem> ls = saleItemR.findSaleitemEntities();
         Object o[] = null;
 
-        for (int i = 0; i < lp.size(); i++) {
+        for (int i = 0; i < ls.size(); i++) {
             modelo.addRow(o);
-            Provider p = providerR.findProvider(lp.get(i).getProviderID().getId());
-            Category c = categoryR.findCategory(lp.get(i).getCategoryID().getId());
-
-            modelo.setValueAt(lp.get(i).getId(), i, 0);
-            modelo.setValueAt(p.getName(), i, 1);
-            modelo.setValueAt(c.getName(), i, 2);
-            modelo.setValueAt(lp.get(i).getName(), i, 3);
-            modelo.setValueAt(lp.get(i).getPrice(), i, 4);
-            modelo.setValueAt(lp.get(i).getStock(), i, 5);
+            modelo.setValueAt(ls.get(i).getId(), i, 0);      
+            modelo.setValueAt(ls.get(i).getProductID(), i, 1);            
+            modelo.setValueAt(ls.get(i).getPrice(), i, 3);
+            modelo.setValueAt(ls.get(i).getQuantity(), i, 4);
+            modelo.setValueAt(ls.get(i).getTotal(), i, 5);
         }
-
+        
         for (int i = 0; i < tProductos.getColumnCount(); i++) {
             tProductos.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
         }
     }
 
     DefaultTableModel modelo;
-    DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+    DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();   
 
     private void modeloTabla() {
         try {
             modelo = (new DefaultTableModel(
                     null, new String[]{
-                        "ID", "Provider",
-                        "Category", "Name", "Price", "Stock"}) {
+                        "ID", "Product ID",
+                        "Price", "Quantity", "Total"}) {
                         Class[] types = new Class[]{
+                            java.lang.Integer.class,                            
                             java.lang.Integer.class,
-                            java.lang.String.class,
-                            java.lang.String.class,
-                            java.lang.String.class,
                             java.lang.Float.class,
-                            java.lang.Integer.class
+                            java.lang.Integer.class,
+                            java.lang.Float.class,                            
                         };
                         boolean[] canEdit = new boolean[]{
-                            false, false, false, false, false, false
+                            false, false, false, false, false
                         };
 
                         @Override
@@ -101,11 +110,6 @@ public class Productos extends javax.swing.JFrame {
         }
         tProductos.getColumnModel().getColumn(0).setPreferredWidth(80);
         tProductos.getColumnModel().getColumn(0).setMaxWidth(80);
-        tProductos.getColumnModel().getColumn(4).setPreferredWidth(80);
-        tProductos.getColumnModel().getColumn(4).setMaxWidth(80);
-        tProductos.getColumnModel().getColumn(5).setPreferredWidth(80);
-        tProductos.getColumnModel().getColumn(5).setMaxWidth(80);
-
     }
 
     /**
@@ -117,23 +121,45 @@ public class Productos extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        listaClientes = new javax.swing.JComboBox();
+        jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tProductos = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
         bAgregarProducto = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        bCancelar = new javax.swing.JButton();
+        bRealizarCompra = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(900, 600));
         setResizable(false);
         getContentPane().setLayout(null);
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel1.setText("Realizar compra");
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(330, 30, 220, 50);
+
+        jLabel2.setText("Seleccionar cliente");
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(50, 120, 120, 16);
+
+        listaClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                listaClientesActionPerformed(evt);
+            }
+        });
+        getContentPane().add(listaClientes);
+        listaClientes.setBounds(50, 150, 360, 22);
+
+        jLabel3.setText("Carrito de compras");
+        getContentPane().add(jLabel3);
+        jLabel3.setBounds(610, 120, 120, 16);
+
         tProductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {},
-                {},
-                {},
-                {}
+
             },
             new String [] {
 
@@ -142,12 +168,7 @@ public class Productos extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tProductos);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(0, 50, 900, 460);
-
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        jLabel1.setText("Products");
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(400, 20, 70, 16);
+        jScrollPane1.setBounds(430, 150, 440, 350);
 
         bAgregarProducto.setText("Agregar Producto");
         bAgregarProducto.addActionListener(new java.awt.event.ActionListener() {
@@ -156,31 +177,37 @@ public class Productos extends javax.swing.JFrame {
             }
         });
         getContentPane().add(bAgregarProducto);
-        bAgregarProducto.setBounds(50, 520, 140, 25);
+        bAgregarProducto.setBounds(600, 510, 150, 25);
 
-        jButton1.setText("Categorías");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        bCancelar.setText("Cancelar");
+        bCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                bCancelarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1);
-        jButton1.setBounds(749, 520, 100, 25);
+        getContentPane().add(bCancelar);
+        bCancelar.setBounds(260, 230, 130, 40);
+
+        bRealizarCompra.setText("Realizar compra");
+        getContentPane().add(bRealizarCompra);
+        bRealizarCompra.setBounds(70, 230, 130, 40);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Categorias c = new Categorias(categoryR);
-        c.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void bAgregarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAgregarProductoActionPerformed
-        agregarProducto ap = new agregarProducto(productR, categoryR, providerR);
-        ap.setVisible(true);
-        
-        this.dispose();
+        agregarProductoCarrito apc = new agregarProductoCarrito(this, productR, customerR, saleR, s);
+        apc.setVisible(true);
+                
     }//GEN-LAST:event_bAgregarProductoActionPerformed
+
+    private void listaClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaClientesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_listaClientesActionPerformed
+
+    private void bCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_bCancelarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -199,29 +226,33 @@ public class Productos extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Productos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(realizarCompra.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Productos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(realizarCompra.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Productos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(realizarCompra.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Productos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(realizarCompra.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Productos(productR, categoryR, providerR).setVisible(true);
+                new realizarCompra(saleR, saleItemR, customerR, productR).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bAgregarProducto;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton bCancelar;
+    private javax.swing.JButton bRealizarCompra;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JComboBox listaClientes;
     private javax.swing.JTable tProductos;
     // End of variables declaration//GEN-END:variables
 }

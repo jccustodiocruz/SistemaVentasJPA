@@ -11,6 +11,8 @@ import Repository.ProductRepository;
 import Repository.ProviderRepository;
 import Repository.SaleItemRepository;
 import Repository.SaleRepository;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 /**
  *
@@ -18,12 +20,13 @@ import Repository.SaleRepository;
  */
 public class Principal extends javax.swing.JFrame {
 
-    final CategoryRepository categoryR = new CategoryRepository();
-    final CustomerRepository customerR = new CustomerRepository();
-    final ProductRepository productR = new ProductRepository();
-    final ProviderRepository providerR = new ProviderRepository();
-    final SaleItemRepository saleItemR = new SaleItemRepository();
-    final SaleRepository saleR = new SaleRepository();
+    final EntityManagerFactory emf = Persistence.createEntityManagerFactory("SistemaVentasPU");
+    final CategoryRepository categoryR = new CategoryRepository(emf);
+    final CustomerRepository customerR = new CustomerRepository(emf);
+    final ProductRepository productR = new ProductRepository(emf);
+    final ProviderRepository providerR = new ProviderRepository(emf);
+    final SaleItemRepository saleItemR = new SaleItemRepository(emf);
+    final SaleRepository saleR = new SaleRepository(emf);
     
     /**
      * Creates new form Principal
@@ -42,26 +45,25 @@ public class Principal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        bProveedores = new javax.swing.JButton();
+        bCompras = new javax.swing.JButton();
         bClientes = new javax.swing.JButton();
         bProductos = new javax.swing.JButton();
+        bProveedores1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(900, 600));
         setMinimumSize(new java.awt.Dimension(900, 600));
-        setPreferredSize(new java.awt.Dimension(900, 600));
         setResizable(false);
         getContentPane().setLayout(null);
 
-        bProveedores.setFont(new java.awt.Font("Tahoma", 3, 13)); // NOI18N
-        bProveedores.setText("Proveedores");
-        bProveedores.addActionListener(new java.awt.event.ActionListener() {
+        bCompras.setFont(new java.awt.Font("Tahoma", 3, 13)); // NOI18N
+        bCompras.setText("Realizar compra");
+        bCompras.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bProveedoresActionPerformed(evt);
+                bComprasActionPerformed(evt);
             }
         });
-        getContentPane().add(bProveedores);
-        bProveedores.setBounds(660, 210, 170, 100);
+        getContentPane().add(bCompras);
+        bCompras.setBounds(690, 210, 170, 100);
 
         bClientes.setFont(new java.awt.Font("Tahoma", 3, 13)); // NOI18N
         bClientes.setText("Clientes");
@@ -71,7 +73,7 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         getContentPane().add(bClientes);
-        bClientes.setBounds(370, 210, 170, 100);
+        bClientes.setBounds(250, 210, 170, 100);
 
         bProductos.setFont(new java.awt.Font("Tahoma", 3, 13)); // NOI18N
         bProductos.setText("Productos");
@@ -81,15 +83,25 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         getContentPane().add(bProductos);
-        bProductos.setBounds(70, 210, 170, 100);
+        bProductos.setBounds(40, 210, 170, 100);
+
+        bProveedores1.setFont(new java.awt.Font("Tahoma", 3, 13)); // NOI18N
+        bProveedores1.setText("Proveedores");
+        bProveedores1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bProveedores1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(bProveedores1);
+        bProveedores1.setBounds(470, 210, 170, 100);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void bProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bProveedoresActionPerformed
-        Proveedores p = new Proveedores(providerR);
-        p.setVisible(true);
-    }//GEN-LAST:event_bProveedoresActionPerformed
+    private void bComprasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bComprasActionPerformed
+        realizarCompra rc = new realizarCompra(saleR, saleItemR, customerR, productR);
+        rc.setVisible(true);
+    }//GEN-LAST:event_bComprasActionPerformed
 
     private void bClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bClientesActionPerformed
         Clientes c = new Clientes(customerR);
@@ -100,6 +112,11 @@ public class Principal extends javax.swing.JFrame {
         Productos p = new Productos(productR, categoryR, providerR);
         p.setVisible(true);
     }//GEN-LAST:event_bProductosActionPerformed
+
+    private void bProveedores1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bProveedores1ActionPerformed
+        Proveedores p = new Proveedores(providerR);
+        p.setVisible(true);
+    }//GEN-LAST:event_bProveedores1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -138,7 +155,8 @@ public class Principal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bClientes;
+    private javax.swing.JButton bCompras;
     private javax.swing.JButton bProductos;
-    private javax.swing.JButton bProveedores;
+    private javax.swing.JButton bProveedores1;
     // End of variables declaration//GEN-END:variables
 }

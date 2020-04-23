@@ -18,7 +18,7 @@ import java.util.logging.Logger;
 public class mostrarProveedor extends javax.swing.JFrame {
 
     static private Provider p;
-    static ProviderRepository pr;
+    static ProviderRepository providerR;
 
     /**
      * Creates new form mostrarProveedor
@@ -28,7 +28,7 @@ public class mostrarProveedor extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.p = p;
-        this.pr = pr;
+        this.providerR = pr;
         bGuardarProveedor.setVisible(false);
         llenarInfo();
     }
@@ -193,12 +193,12 @@ public class mostrarProveedor extends javax.swing.JFrame {
         p.setWebsite(areaWebsite.getText());
         
         try {
-            pr.edit(p);
+            providerR.edit(p);
         } catch (Exception ex) {
             Logger.getLogger(mostrarProveedor.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        Proveedores p = new Proveedores(pr);
+        Proveedores p = new Proveedores(providerR);
         p.setVisible(true);
         
         this.dispose();
@@ -206,12 +206,12 @@ public class mostrarProveedor extends javax.swing.JFrame {
 
     private void bEliminarProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bEliminarProveedorActionPerformed
         try {
-            pr.destroy(p.getId());
+            providerR.destroy(p.getId());
         } catch (NonexistentEntityException ex) {
             Logger.getLogger(mostrarProveedor.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        Proveedores vp = new Proveedores(pr);
+        Proveedores vp = new Proveedores(providerR);
         vp.setVisible(true);
         
         this.dispose();
@@ -247,7 +247,7 @@ public class mostrarProveedor extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new mostrarProveedor(pr, p).setVisible(true);
+                new mostrarProveedor(providerR, p).setVisible(true);
             }
         });
     }

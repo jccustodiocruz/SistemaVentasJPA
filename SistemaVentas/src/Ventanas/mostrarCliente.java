@@ -18,7 +18,7 @@ import java.util.logging.Logger;
 public class mostrarCliente extends javax.swing.JFrame {
 
     static private Customer c;
-    static CustomerRepository cr = new CustomerRepository();
+    static CustomerRepository customerR;
 
     /**
      * Creates new form mostrarCliente
@@ -28,7 +28,7 @@ public class mostrarCliente extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.c = c;
-        this.cr = cr;
+        this.customerR = cr;
         bGuardarCliente.setVisible(false);
         llenarInfo();
     }
@@ -193,12 +193,12 @@ public class mostrarCliente extends javax.swing.JFrame {
         c.setPhone(areaPhone.getText());
 
         try {
-            cr.edit(c);
+            customerR.edit(c);
         } catch (Exception ex) {
             Logger.getLogger(mostrarCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        Clientes vc = new Clientes(cr);
+        Clientes vc = new Clientes(customerR);
         vc.setVisible(true);
 
         this.dispose();
@@ -206,12 +206,12 @@ public class mostrarCliente extends javax.swing.JFrame {
 
     private void bEliminarCliente1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bEliminarCliente1ActionPerformed
         try {
-            cr.destroy(c.getId());
+            customerR.destroy(c.getId());
         } catch (NonexistentEntityException ex) {
             Logger.getLogger(mostrarCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        Clientes vc = new Clientes(cr);
+        Clientes vc = new Clientes(customerR);
         vc.setVisible(true);
 
         this.dispose();
@@ -248,7 +248,7 @@ public class mostrarCliente extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
 
-                new mostrarCliente(cr, c).setVisible(true);
+                new mostrarCliente(customerR, c).setVisible(true);
             }
         });
     }

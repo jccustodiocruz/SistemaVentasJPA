@@ -19,14 +19,14 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Proveedores extends javax.swing.JFrame {
 
-    static ProviderRepository pr;
+    static ProviderRepository providerR;
     /**
      * Creates new form Proveedores
      */
     public Proveedores(ProviderRepository pr) {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.pr = pr;
+        this.providerR = pr;
         modeloTabla();
         llenarTabla();
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -34,7 +34,7 @@ public class Proveedores extends javax.swing.JFrame {
     
     public void llenarTabla() {
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-        List<Provider> lp = pr.findProviderEntities();
+        List<Provider> lp = providerR.findProviderEntities();
         Object o[] = null;
 
         for (int i = 0; i < lp.size(); i++) {
@@ -150,16 +150,16 @@ public class Proveedores extends javax.swing.JFrame {
         int selectedRow = tProveedores.getSelectedRow();        
         int id = (int) modelo.getValueAt(selectedRow, 0);
         
-        Provider p = pr.findProvider(id);
+        Provider p = providerR.findProvider(id);
         
-        mostrarProveedor mp = new mostrarProveedor(pr, p);
+        mostrarProveedor mp = new mostrarProveedor(providerR, p);
         mp.setVisible(true);
         
         this.dispose();
     }//GEN-LAST:event_tProveedoresMouseClicked
 
     private void bAgregarProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAgregarProveedorActionPerformed
-        agregarProveedor ap = new agregarProveedor(pr);
+        agregarProveedor ap = new agregarProveedor(providerR);
         ap.setVisible(true);
         
         this.dispose();
@@ -195,7 +195,7 @@ public class Proveedores extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Proveedores(pr).setVisible(true);
+                new Proveedores(providerR).setVisible(true);
             }
         });
     }

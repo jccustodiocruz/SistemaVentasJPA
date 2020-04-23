@@ -14,7 +14,7 @@ import Repository.CustomerRepository;
  */
 public class agregarCliente extends javax.swing.JFrame {
 
-    static CustomerRepository cr;
+    static CustomerRepository customerR;
     private Customer c = new Customer();
     
     /**
@@ -22,7 +22,7 @@ public class agregarCliente extends javax.swing.JFrame {
      */
     public agregarCliente(CustomerRepository cr) {
         initComponents();
-        this.cr = cr;
+        this.customerR = cr;
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
@@ -173,9 +173,9 @@ public class agregarCliente extends javax.swing.JFrame {
         c.setAddress(areaAddress.getText());
         c.setPhone(areaPhone.getText());
         
-        cr.create(c);
+        customerR.create(c);
         
-        Clientes vc = new Clientes(cr);
+        Clientes vc = new Clientes(customerR);
         vc.setVisible(true);
         
         this.dispose();
@@ -219,7 +219,7 @@ public class agregarCliente extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new agregarCliente(cr).setVisible(true);
+                new agregarCliente(customerR).setVisible(true);
             }
         });
     }

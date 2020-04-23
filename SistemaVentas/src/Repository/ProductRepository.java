@@ -28,8 +28,8 @@ import javax.persistence.Persistence;
  */
 public class ProductRepository implements Serializable {
 
-    public ProductRepository() {
-        this.emf = Persistence.createEntityManagerFactory("SistemaVentasPU");
+    public ProductRepository(EntityManagerFactory emf) {
+        this.emf = emf;
     }
     private EntityManagerFactory emf = null;
 

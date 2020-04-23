@@ -15,14 +15,14 @@ import Repository.CategoryRepository;
 public class agregarCategoria extends javax.swing.JFrame {
 
     Category c = new Category();
-    static CategoryRepository cr;
+    static CategoryRepository categoryR;
     /**
      * Creates new form agregarCategoria
      */
     public agregarCategoria(CategoryRepository cr) {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.cr = cr;
+        this.categoryR = cr;
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
@@ -101,9 +101,9 @@ public class agregarCategoria extends javax.swing.JFrame {
         c.setName(areaName.getText());
         c.setDescription(areaDescription.getText());
 
-        cr.create(c);
+        categoryR.create(c);
 
-        Categorias vc = new Categorias(cr);
+        Categorias vc = new Categorias(categoryR);
         vc.setVisible(true);
 
         this.dispose();
@@ -139,7 +139,7 @@ public class agregarCategoria extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new agregarCategoria(cr).setVisible(true);
+                new agregarCategoria(categoryR).setVisible(true);
             }
         });
     }
